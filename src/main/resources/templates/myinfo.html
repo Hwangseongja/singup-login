@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>관리가구 1번</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div style="text-align: center;">
+    <hr>
+    <a th:href="@{/members}">표보기</a>
+    <a th:href="@{/v1/board}">그래프보기</a>
+    </br>
+    <a th:href="@{'/'}">메인으로 이동</a>
+</div>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script sec:authorize="hasRole('ROLE_MEMBER')" langauge="javascript">
+    $(function(){
+    timer=setInterval(function(){
+
+     $.ajax({
+            type: 'GET',
+            url:"http://localhost:8080/members",
+            data: null,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success:function(data){
+                console.log(data);
+                console.log(data.result);
+                var result = data[data.length-1];
+                console.log(result);
+                var result1 = result.result;
+                console.log(result);
+                const result2 =$.trim(result1);
+                if(result2=='1'){window.open("/popup","경고","width=800,height=500");}
+               }
+     });
+     },4000);
+});
+
+    </script>
+
+</body>
+</html>
